@@ -74,17 +74,19 @@ function Header(props) {
   return (
     <header className={scrolled ? 'scrolled' : ''}>
       <div className='h_wrap'>
-        <div className={`toggle ${isOpen ? 'open' : ''}`} onClick={handleToggle}>
-          <span className='t1'></span>
-          <span className='t2'></span>
-          <span className='t3'></span>
+        <div className='ml_wrap'>
+          <div className={`toggle ${isOpen ? 'open' : ''}`} onClick={handleToggle}>
+            <span className='t1'></span>
+            <span className='t2'></span>
+            <span className='t3'></span>
+          </div>
+          <h1><Link to='/'>
+            <img
+              src={isMobile ?`${process.env.PUBLIC_URL}/images/logo_m.png`:`${process.env.PUBLIC_URL}/images/logo.png`}
+              alt="Logo"
+            />
+          </Link></h1>
         </div>
-        <h1><Link to='/'>
-          <img
-            src={isMobile ?`${process.env.PUBLIC_URL}/images/logo_m.png`:`${process.env.PUBLIC_URL}/images/logo.png`}
-            alt="Logo"
-          />
-        </Link></h1>
         <div className='h_search'>
           <input type="text" name='search' id='search' placeholder='검색을 통해 디공에서 아이디어를 나눠요!' style={{fontWeight:'lighter'}} value={search} onChange={(e) => setSearch(e.target.value)} />
           <button><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
