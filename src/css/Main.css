@@ -182,7 +182,6 @@ button .fa-heart{
     min-width: 768px;
   }
   .g_area{
-  column-count: 4;
   max-width: 1000px;
   min-width: 768px;
   column-gap: 0px;
@@ -225,9 +224,9 @@ button .fa-heart{
     font-size: 14px !important;
   }
   .g_area{
-  column-count: 3;
-  column-gap: 0px;
-  max-width: 760px;
+    padding:0px !important;
+    gap: 0px !important;
+    max-width: 760px;
   }
   .g_area .gallery > img {
     width: 100%;
@@ -236,6 +235,7 @@ button .fa-heart{
     display: inline-block;
     width: 81%;
   }
+  .g_column{margin:0 5px; padding:0px;}
   .g_cover > button > .svg-inline--fa {width: 100%; transform: translateY(-5px);}
 
   .l_img > img, .r_img > img {width: 50%; pointer-events: none; position: absolute; border-radius: 10px;}
@@ -250,11 +250,10 @@ button .fa-heart{
 
 @media screen and (max-width: 500px) {
   .g_area {
-    max-width: 500px;
-    column-count: 2;
+    width: 100% !important;
   }
   .c_area, .c_wrap {
-    max-width: 500px;
+    width: 100% !important;
   }
   .c_wrap {
     flex-wrap: wrap;

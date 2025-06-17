@@ -119,7 +119,7 @@ function Header(props) {
           {!nickname ? (
           <li><Link to='/login'><FontAwesomeIcon icon={faUser} /></Link></li>
           ) : (
-          <li onClick={handleProfile} ref={m_profileRef}><img src={`${process.env.PUBLIC_URL}/images/samples/user1.png`} alt="User Profile" />
+          <li onClick={handleProfile} ref={m_profileRef}><img src={`${API_BASE}/uploads/${userImg}`} alt="User Profile" />
             {profile && (<div className="h_profile">
                 <ul>
                   <li><Link to='profile'>내 프로필</Link></li>
