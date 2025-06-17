@@ -1,0 +1,53 @@
+@charset "utf-8";
+.form_title {text-align: center; font-size: 30px; margin-bottom: 30px;}
+.form {width: 1440px; margin: 0 auto; margin-top: 200px;}
+.explain {text-align: center;  margin-bottom: 40px;}
+
+.login {width: 1100px; margin: 0 auto;}
+.login > p {width: 600px; margin: 0 auto; text-align: center; margin-bottom: 30px;}
+.email > label, .password > label, .name > label, .nickname > label {display: inline-block; width: 70px; text-align: right; margin-right: 15px;}
+.email > input, .password > input, .name > input, .nickname > input, .title > input, .category > select {height: 45px; width: 65%; text-indent: 10px; border-radius: 5px; border: 1px solid #8b8b8b; box-sizing: border-box;}
+button[type=submit] {background-color: var(--m_color); color: var(--s_color_w); width: 80%; border: none; border-radius: 5px; line-height: 50px; font-size: 24px; margin-left: 10px; font-family: var(--font_family);}
+
+.simple_login {width: 1100px; margin: 0 auto; text-align: center; margin-top: 20px;}
+.simple_login > h3 {font-size: 26px;}
+.simple_login > ul {width: 390px; display: flex; justify-content: space-around; margin: 0 auto; margin-top: 40px;}
+.simple_login > ul > li > img {width: 70%;}
+
+.signin {width: 450px; margin: 0 auto;}
+.signin > p, .name_box {margin-bottom:30px;}
+.signin p > label {width: 100%; text-align: left; margin-bottom: 20px;}
+.signin p > input {width: 100%;}
+.name_box {display: flex;}
+.name {margin-right: 50px;}
+.name, .nickname {width: 50%;}
+.agree_box {text-align: left;}
+.agree_box > label {width: 70%; color: #ccc;}
+#agree {width: 10%;}
+.signin button {width: 100%;}
+
+.upload {width: 450px; margin: 0 auto;}
+.upload p{margin-bottom: 20px;}
+.upload p > label {width: 100%; text-align: left; margin-bottom: 20px;}
+.upload p > input {width: 100%;}
+.upload p > select {display: block; color:#8b8b8b; font-family: var(--font_family); width: 100%; box-sizing: border-box;}
+.upload p > textarea {width: 100%; resize: none; font-family: var(--font_family); border-radius: 5px; padding: 10px; box-sizing: border-box;}
+.upload button {width: 100%; margin-left: 0px;}
+
+@media screen and (max-width:1024px) and (min-width: 768px) {
+    .form {width: 100%; margin: 0 auto; margin-top: 200px;}
+    .login {width: 100%; margin: 0 auto;}
+    .simple_login {width: 100%; margin: 0 auto;}
+
+}
+
+@media screen and (max-width:767px) {
+    .form {width: 100%; margin: 0 auto; margin-top: 200px;}
+    .login {width: 100%; margin: 0 auto;}
+    .login > p {width: 100%;}
+    .simple_login {width: 100%; margin: 0 auto; padding-top: 20px;}
+    .simple_login > h3 {font-size: 20px;}
+    .simple_login > ul {width: 60%;}
+    .simple_login > ul > li > img {width: 70%; justify-content: space-between;}
+    .explain {width: 80%; margin: 0 auto; padding-bottom: 30px;}
+}
