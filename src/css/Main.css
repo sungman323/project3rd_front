@@ -215,7 +215,10 @@ button .fa-heart{
   font-size: 2rem;
   }
   .c_area, .c_wrap {
-    max-width: 767px;
+    width: 100% !important;
+  }
+  .c_wrap {
+    flex-wrap: wrap;
   }
   .cate {
     padding: 5px 10px !important;
