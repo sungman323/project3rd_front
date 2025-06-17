@@ -5,6 +5,8 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faShareNodes, faHeart, faComment, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
+
 function Detail(props) {
   const {p_id} = useParams();
 
@@ -47,7 +49,7 @@ const handleShare = async () => {
 
   useEffect(()=>{
     if(userId){
-      axios.get(`http://localhost:9070/liked-posts/${userId}`)
+      axios.get(`${API_BASE}/liked-posts/${userId}`)
         .then(res=>{
           const likedIds = res.data.map(post => post.id);
           setLikedPosts(likedIds);
@@ -62,10 +64,10 @@ const handleShare = async () => {
     const liked = likedPosts.includes(Number(postId));
     try{
       if (liked){
-        await axios.delete('http://localhost:9070/like',{data: {user_id: userId, post_id: postId}});
+        await axios.delete(`${API_BASE}/like`,{data: {user_id: userId, post_id: postId}});
         setLikedPosts(prev => prev.filter(id => id !== Number(postId)));
       }else{
-        await axios.post('http://localhost:9070/like', {user_id: userId, post_id: postId});
+        await axios.post(`${API_BASE}/like`, {user_id: userId, post_id: postId});
         setLikedPosts(prev => [...prev, Number(postId)]);
       }
     }catch(err){
@@ -107,13 +109,13 @@ return () => window.removeEventListener('scroll', toggleVisibility);
 }, []);
 
   useEffect(() => {
-    axios.get(`http://localhost:9070/detail/${p_id}`)
+    axios.get(`${API_BASE}/detail/${p_id}`)
     .then(res=>{
       setData(res.data);
     })
     .catch(err => console.log('조회 오류 : ', err));
 
-    axios.get(`http://localhost:9070/comment/${p_id}`)
+    axios.get(`${API_BASE}/comment/${p_id}`)
     .then(res=>{
       setComment(res.data);
     })
@@ -127,7 +129,7 @@ return () => window.removeEventListener('scroll', toggleVisibility);
   const handleSubmit = async(e) => {
     e.preventDefault();
     try{ // 데이터 전송 성공 시
-      await axios.post('http://localhost:9070/comment', formData);
+      await axios.post(`${API_BASE}/comment`, formData);
       alert('코멘트가 등록되었습니다.');
       window.location.href = '/detail/'+p_id;
     }
@@ -160,7 +162,7 @@ return (
                   {data.length > 0 ? (
                     <>
                     {console.log(data)}
-                      {props.userId==data[0].author_id?(<Link to="/profile"><img src={`http://localhost:9070/uploads/${data[0].img}`} alt="프로필사진" /></Link>):(<Link to={`/UserInfo/${data[0].author_id}`}><img src={`http://localhost:9070/uploads/${data[0].img}`} alt="프로필사진" /></Link>)}
+                      {props.userId==data[0].author_id?(<Link to="/profile"><img src={`${API_BASE}/uploads/${data[0].img}`} alt="프로필사진" /></Link>):(<Link to={`/UserInfo/${data[0].author_id}`}><img src={`${API_BASE}/uploads/${data[0].img}`} alt="프로필사진" /></Link>)}
                       <p className='detail_nav_txtclr'><Link to="/profile">프로필</Link></p>
                     </>
                     ) : (
@@ -192,7 +194,7 @@ return (
             <div className="detail_titlebox">
                 {data.length > 0 ? (
                   <>
-                <img src={`http://localhost:9070/uploads/${data[0].img}`} alt="상세보기 글 프로필 사진" />
+                <img src={`${API_BASE}/uploads/${data[0].img}`} alt="상세보기 글 프로필 사진" />
                 <div className="titlebox_txt">
                     <h2>{data[0].title}</h2>
                     <p>{data[0].explain.split('\n').map((line, index) => (
@@ -211,7 +213,7 @@ return (
             {/* 컨텐츠 이미지 */}
             <div className="detail_photo">
               {data.map((item, index) => (
-                <p key={index}><img src={`http://localhost:9070/uploads/${item.file_name}`} alt={`상세보기 이미지${index}`} /></p>
+                <p key={index}><img src={`${API_BASE}/uploads/${item.file_name}`} alt={`상세보기 이미지${index}`} /></p>
               ))}
             </div>
 
@@ -250,7 +252,7 @@ return (
                 <div className="detail_reading_comment">
                   {comment.map((item, index) => (
                     <div className="detail_reading_comment_profile" key={index}>
-                        <img src={`http://localhost:9070/uploads/${item.img}`} alt="댓글 프로필 사진" />
+                        <img src={`${API_BASE}/uploads/${item.img}`} alt="댓글 프로필 사진" />
                         <div className="detail_reading_comment_profile_txt">
                           <p>{item.nickname}</p>
                           <p>{item.comment.split('\n').map((line, index) => (

@@ -8,6 +8,8 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation } from 'react-router-dom';
 import '../css/Main.css';
 
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
+
 function Main(props) {
   const { selectedCategory, setSelectedCategory, userId, search, setSearch } = props;
   /* 좋아요 */
@@ -15,7 +17,7 @@ function Main(props) {
 
   useEffect(()=>{
     if (userId){
-      axios.get(`http://localhost:9070/liked-posts/${userId}`)
+      axios.get(`${API_BASE}/liked-posts/${userId}`)
         .then(res=> setLikedPosts(res.data.map(p=>p.id)));
     }
   }, [userId]);
@@ -26,10 +28,10 @@ function Main(props) {
     const liked = likedPosts.includes(postId);
     try{
       if(liked){
-        await axios.delete(`http://localhost:9070/like`,{data:{user_id:userId, post_id:postId}});
+        await axios.delete(`${API_BASE}/like`,{data:{user_id:userId, post_id:postId}});
         setLikedPosts(prev => prev.filter(id => id !== postId));
       }else{
-        await axios.post(`http://localhost:9070/like`, {user_id:userId, post_id:postId});
+        await axios.post(`${API_BASE}/like`, {user_id:userId, post_id:postId});
         setLikedPosts(prev => [...prev,postId]);
       }
     }catch(err){
@@ -58,7 +60,7 @@ function Main(props) {
   const shouldHide = isDetailPage && isMobile;
 
   const loadData = useCallback(() => {
-    axios.get('http://localhost:9070/posts')
+    axios.get(`${API_BASE}/posts`)
       .then(res => {
         setData(res.data);
       })
@@ -184,12 +186,12 @@ function Main(props) {
         {filteredData.map((item, index) => (
           <Link to={`/detail/${item.id}`} key={index} state={{ backgroundLocation: location }}>
             <div className='gallery'>
-              <LazyImage src={`http://localhost:9070/uploads/${item.file_name}`} alt={`${item.title}`}></LazyImage>
+              <LazyImage src={`${API_BASE}/uploads/${item.file_name}`} alt={`${item.title}`}></LazyImage>
               <div className='g_cover'>
                 <button onClick={(e) => toggleLike(e, item.id)}>
                   <FontAwesomeIcon icon={faHeart} style={{color: likedPosts.includes(item.id) ? 'red' : '#fff'}} />
                 </button>
-                <img src={`http://localhost:9070/uploads/${item.img}`} alt="profile" /><p>{item.title}</p>
+                <img src={`${API_BASE}/uploads/${item.img}`} alt="profile" /><p>{item.title}</p>
               </div>
             </div>
           </Link>

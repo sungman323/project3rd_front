@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import '../css/profile.css';
 
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
+
 function Profile(props) {
     const location = useLocation();
     const tabs = [{ title: '작품' }, { title: '좋아요' }];
@@ -18,14 +20,14 @@ function Profile(props) {
 
     useEffect(()=> {
         if (tabmenu === '좋아요' && props.userId){
-            axios.get(`http://localhost:9070/liked-posts/${props.userId}`)
+            axios.get(`${API_BASE}/liked-posts/${props.userId}`)
                 .then(res => setLikedPosts(res.data));
         }
     }, [tabmenu, props.userId]);
 
     useEffect(() => {
         if (props.userId) {
-        axios.get(`http://localhost:9070/user-posts?author_id=${props.userId}`)
+        axios.get(`${API_BASE}/user-posts?author_id=${props.userId}`)
             .then(res => {
                 setPosts(res.data);
                 // console.log('API 응답 데이터:', res.data);
@@ -67,7 +69,7 @@ function Profile(props) {
         const confirmed = window.confirm("정말 이 게시글을 삭제하시겠습니까?");
         if (!confirmed) return;
 
-        axios.delete(`http://localhost:9070/profile/${id}`)
+        axios.delete(`${API_BASE}/profile/${id}`)
             .then((res) => {
                 alert(res.data.message);
                 window.location.reload();
@@ -81,12 +83,12 @@ function Profile(props) {
     return (
         <div className="post-card">
             <Link to={`/detail/${post.id}`} state={{ backgroundLocation: location }}>
-                <img src={`http://localhost:9070/uploads/${post.file_name}`} alt={post.title} />
+                <img src={`${API_BASE}/uploads/${post.file_name}`} alt={post.title} />
             <div className='g_cover'>
             <button ref={buttonRef} onClick={handleButtonClick}>
                 <FontAwesomeIcon icon={faEllipsisVertical} />
             </button>
-            <img src={`http://localhost:9070/uploads/${post.img}`} alt="profile" />
+            <img src={`${API_BASE}/uploads/${post.img}`} alt="profile" />
             <p>{post.title}</p>
             </div>            
             </Link>
@@ -139,9 +141,9 @@ function Profile(props) {
                                     {likedPosts.map(post => (
                                     <div className="post-card" key={post.id}>
                                         <Link to={`/detail/${post.id}`} state={{ backgroundLocation: location }}>
-                                        <img src={`http://localhost:9070/uploads/${post.file_name}`} alt={post.title} />
+                                        <img src={`${API_BASE}/uploads/${post.file_name}`} alt={post.title} />
                                         <div className='g_cover'>
-                                            <img src={`http://localhost:9070/uploads/${post.img}`} alt="profile" />
+                                            <img src={`${API_BASE}/uploads/${post.img}`} alt="profile" />
                                             <p>{post.title}</p>
                                         </div>
                                         </Link>

@@ -4,6 +4,8 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
+
 function Header(props) {
   const { setSelectedCategory, nickname, userImg, search, setSearch } = props;
   const [menu, setMenu] = useState(false);
@@ -94,7 +96,7 @@ function Header(props) {
           </ul>
         ) : (
           <ul className='main_header'>
-            <li onClick={handleProfile} ref={profileRef}><img src={`http://localhost:9070/uploads/${userImg}`} alt="Profile" />{nickname}
+            <li onClick={handleProfile} ref={profileRef}><img src={`${API_BASE}/uploads/${userImg}`} alt="Profile" />{nickname}
             {profile && (<div className="h_profile">
                 <ul>
                   <li><Link to='profile'>내 프로필</Link></li>

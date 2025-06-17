@@ -1,6 +1,8 @@
 import React , {useState, useRef} from 'react';
 import axios from 'axios';
 
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
+
 function User_Info(props) {
     const [profileImage, setProfileImage] = useState(()=>props.userImg);
     const fileInputRef = useRef(null);
@@ -17,7 +19,7 @@ function User_Info(props) {
     try {
         setUploading(true);
 
-        const response = await axios.post('http://localhost:9070/upload-profile-img', formData, {
+        const response = await axios.post(`${API_BASE}/upload-profile-img`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' },
         });
 
@@ -38,7 +40,7 @@ function User_Info(props) {
     return (
         <div className='user_profile'>
           <div className='user_pic'> 
-            <img src={`http://localhost:9070/uploads/${props.userImg}`}/>
+            <img src={`${API_BASE}/uploads/${props.userImg}`}/>
             <button onClick={handleEditClick} >
             🔧
             </button>

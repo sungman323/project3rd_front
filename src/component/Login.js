@@ -4,6 +4,8 @@ import { jwtDecode } from 'jwt-decode';
 import { Link } from 'react-router-dom';
 import '../css/form.css';
 
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
+
 function Login(props) {
   const [formData, setFormData] = useState({email:'', password:''});
 
@@ -13,7 +15,7 @@ function Login(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-      const res = await axios.post('http://localhost:9070/login', formData);
+      const res = await axios.post(`${API_BASE}/login`, formData);
       localStorage.setItem('token', res.data.token);
 
       const decoded = jwtDecode(res.data.token);

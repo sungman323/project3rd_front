@@ -3,6 +3,8 @@ import '../css/form.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
+
 function Signin(props) {
 
   const navigate = useNavigate();
@@ -30,7 +32,7 @@ function Signin(props) {
       return;
     }
     try{
-      const res = await axios.post('http://localhost:9070/signin',{
+      const res = await axios.post(`${API_BASE}/signin`,{
         email : form.email,
         password : form.password,
         name : form.name,

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
+
 function Edit() {
     const { id } = useParams();
     console.log("Edit 페이지에서 받은 id:", id);
@@ -19,7 +21,7 @@ function Edit() {
 
     // 기존 게시물 데이터 불러오기
     useEffect(() => {
-    axios.get(`http://localhost:9070/profile/${id}`)
+    axios.get(`${API_BASE}/profile/${id}`)
         .then(res => {
         setPost(res.data);
         setLoading(false);
@@ -29,7 +31,7 @@ function Edit() {
             setPreviews([
             {
                 name: res.data.file_name,
-                url: `http://localhost:9070/uploads/${res.data.file_name}`,
+                url: `${API_BASE}/uploads/${res.data.file_name}`,
             },
             ]);
         }
@@ -75,7 +77,7 @@ function Edit() {
             });
         }
 
-        axios.post(`http://localhost:9070/update-post/${id}`, formData, {
+        axios.post(`${API_BASE}/update-post/${id}`, formData, {
             headers: {
             'Content-Type': 'multipart/form-data'
             }
