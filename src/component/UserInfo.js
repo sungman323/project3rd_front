@@ -1,6 +1,5 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
-import Info from './Info';
 import axios from 'axios';
 import '../css/profile.css';
 
@@ -12,9 +11,6 @@ function UserInfo(props) {
   const tabs = [{ title: '작품' }];
   const [posts, setPosts] = useState([]);
   const [tabmenu, setTabmenu] = useState(tabs[0].title);
-
-  /* 좋아요 */
-  const [likedPosts, setLikedPosts] = useState([]);
 
   useEffect(() => {
       if (userId) {

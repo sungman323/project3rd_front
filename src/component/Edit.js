@@ -6,7 +6,7 @@ const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
 function Edit() {
     const { id } = useParams();
-    console.log("Edit 페이지에서 받은 id:", id);
+    // console.log("Edit 페이지에서 받은 id:", id);
 
     const [post, setPost] = useState({
         title: '',
@@ -16,7 +16,6 @@ function Edit() {
     });
     const [files, setFiles] = useState([]);
     const [previews, setPreviews] = useState([]);
-    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     // 기존 게시물 데이터 불러오기
@@ -24,7 +23,6 @@ function Edit() {
     axios.get(`${API_BASE}/profile/${id}`)
         .then(res => {
         setPost(res.data);
-        setLoading(false);
 
         // 기존 이미지 미리보기 등록
         if (res.data.file_name) {
@@ -38,7 +36,6 @@ function Edit() {
         })
         .catch(err => {
         console.error(err);
-        setLoading(false);
         });
     }, [id]);
 

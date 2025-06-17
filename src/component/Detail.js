@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import '../css/Detail.css';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark, faShareNodes, faHeart, faComment, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faXmark, faShareNodes, faHeart, faComment } from '@fortawesome/free-solid-svg-icons';
 
 const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
@@ -75,7 +75,6 @@ const handleShare = async () => {
     }
   };
 
-  const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
 
   const [data, setData] = useState([]);
@@ -94,19 +93,6 @@ const handleShare = async () => {
       behavior: 'smooth'
   });
   }; */
-
-useEffect(() => {
-  const toggleVisibility = () => {
-    if (window.scrollY > 300) {
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
-    }
-};
-
-window.addEventListener('scroll', toggleVisibility);
-return () => window.removeEventListener('scroll', toggleVisibility);
-}, []);
 
   useEffect(() => {
     axios.get(`${API_BASE}/detail/${p_id}`)
@@ -162,7 +148,7 @@ return (
                   {data.length > 0 ? (
                     <>
                     {console.log(data)}
-                      {props.userId==data[0].author_id?(<Link to="/profile"><img src={`${API_BASE}/uploads/${data[0].img}`} alt="프로필사진" /></Link>):(<Link to={`/UserInfo/${data[0].author_id}`}><img src={`${API_BASE}/uploads/${data[0].img}`} alt="프로필사진" /></Link>)}
+                      {props.userId===data[0].author_id?(<Link to="/profile"><img src={`${API_BASE}/uploads/${data[0].img}`} alt="프로필사진" /></Link>):(<Link to={`/UserInfo/${data[0].author_id}`}><img src={`${API_BASE}/uploads/${data[0].img}`} alt="프로필사진" /></Link>)}
                       <p className='detail_nav_txtclr'><Link to="/profile">프로필</Link></p>
                     </>
                     ) : (

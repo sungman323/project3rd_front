@@ -1,12 +1,10 @@
-import React , {useState, useRef} from 'react';
+import React , {useRef} from 'react';
 import axios from 'axios';
 
 const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
 function User_Info(props) {
-    const [profileImage, setProfileImage] = useState(()=>props.userImg);
     const fileInputRef = useRef(null);
-    const [uploading, setUploading] = useState(false);
     const handleImageChange = async (event) => {
     const file = event.target.files[0];
 
@@ -17,20 +15,15 @@ function User_Info(props) {
     formData.append('image', file);
 
     try {
-        setUploading(true);
-
         const response = await axios.post(`${API_BASE}/upload-profile-img`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' },
         });
 
         const imagePath = response.data.path;
-        setProfileImage(imagePath);
         props.setUserImg(imagePath);
     } catch (err) {
         console.error('이미지 업로드 실패:', err);
         alert('이미지 업로드에 실패했습니다.');
-    } finally {
-        setUploading(false);
     }
     };
 
@@ -40,7 +33,7 @@ function User_Info(props) {
     return (
         <div className='user_profile'>
           <div className='user_pic'> 
-            <img src={`${API_BASE}/uploads/${props.userImg}`}/>
+            <img src={`${API_BASE}/uploads/${props.userImg}`} alt="프로필사진" />
             <button onClick={handleEditClick} >
             🔧
             </button>
