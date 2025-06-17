@@ -268,7 +268,7 @@
     background: linear-gradient(360deg,rgba(186, 186, 186, 1) 0%, rgba(255, 255, 255, 0) 100%);
   }
   .detail_nav_bg .detail_nav_icon{
-    background-color: none;
+    background-color: #fff;
     padding:15px; 
     border-radius: 50%;
     color: var(--s_color_bk);
