@@ -114,7 +114,7 @@ function Header(props) {
         <ul className='mobile'>
           <li>
             <div className='m_search'>
-              <input type="text" name='search' id='search' className={showMobileSearch ? 'active':''} style={{maxHeight: showMobileSearch ? '40px' : '0', opacity: showMobileSearch ? 1 : 0, transition: 'max-height 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.4s', overflow: 'hidden', display: 'block'}}/>
+              <input type="text" name='search' id='search' className={showMobileSearch ? 'active':''} style={{maxHeight: showMobileSearch ? '40px' : '0', opacity: showMobileSearch ? 1 : 0, transition: 'max-height 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.4s', overflow: 'hidden', display: 'block'}} value={search} onChange={(e) => setSearch(e.target.value)} />
               <FontAwesomeIcon icon={faMagnifyingGlass}  className='s_icon' onClick={() => setShowMobileSearch(!showMobileSearch)}/>
             </div>
           </li>

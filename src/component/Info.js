@@ -1,10 +1,12 @@
 import React , {useRef} from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
 function User_Info(props) {
     const fileInputRef = useRef(null);
+    const navigate = useNavigate();
     const handleImageChange = async (event) => {
     const file = event.target.files[0];
 
@@ -42,8 +44,10 @@ function User_Info(props) {
             <div className='user_info'>
                 <p className='user_n'>{props.nickname}</p>
                 <p className='user_e'>{props.email}</p>
-                <p className='user_intro'>자기소개</p>
-                <p className='user_introP'></p>
+                <p className='user_introT'>자기소개</p>
+                <p className='user_introP'>{props.introduce}</p>
+                <br />
+                <button onClick={()=>navigate(`/profileupdate/${props.userId}`) }>수정하기</button>
             </div>
         </div>
     );

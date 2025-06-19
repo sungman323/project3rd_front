@@ -1,9 +1,10 @@
 @charset "utf-8";
 .profile {margin-top: 114px;}
-.user_n, .user_intro {font-size: 22px; font-weight: bold;}
+.user_n, .user_introT {font-size: 22px; font-weight: bold;}
 .user_e {font-size: 18px; margin-bottom: 20px;}
-.bg > img {width: 100%; height: 30vh; object-fit: cover;}
+.bg > video {width: 100%; height: 30vh; object-fit: cover; filter: brightness(0.8);}
 .showcase, .inner_showcase {display: flex;}
+.edit_info {background-color: var(--m_color); color: #fff; border: none; padding: 5px 15px; border-radius: 5px; transform: translate(800%, 800%);}
 
 .showcase {width: 100%; max-width: 1440px; margin: 0 auto;}
 

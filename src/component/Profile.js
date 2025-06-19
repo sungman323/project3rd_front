@@ -1,5 +1,5 @@
-import React, {useEffect, useState, useRef} from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, {useEffect, useState, useRef } from 'react';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Info from './Info';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,11 +9,27 @@ import '../css/profile.css';
 const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
 function Profile(props) {
+    const { id:userId } = useParams();
     const location = useLocation();
+    const navigate = useNavigate();
     const tabs = [{ title: '작품' }, { title: '좋아요' }];
     const [posts, setPosts] = useState([]);
     const [tabmenu, setTabmenu] = useState(tabs[0].title);
     const [openMenuPostId, setOpenMenuPostId] = useState(null);
+
+    //배경 랜덤
+    const [background, setBackground] = useState(null);
+    const backgroundImages = [
+        {id: 1, video: "/images/user_bg1.mp4"},
+        {id: 2, video: "/images/user_bg2.mp4"},
+        {id: 3, video: "/images/user_bg3.mp4"},
+        {id: 4, video: "/images/user_bg4.mp4"}
+    ];
+
+    useEffect(()=> {
+        const randomIndex = Math.floor(Math.random() * backgroundImages.length);
+        setBackground(backgroundImages[randomIndex]);
+    },[]);
 
     /* 좋아요 */
     const [likedPosts, setLikedPosts] = useState([]);
@@ -69,7 +85,7 @@ function Profile(props) {
         const confirmed = window.confirm("정말 이 게시글을 삭제하시겠습니까?");
         if (!confirmed) return;
 
-        axios.delete(`${API_BASE}/profile/${id}`)
+        axios.delete(`${API_BASE}/profile/${userId}`)
             .then((res) => {
                 alert(res.data.message);
                 window.location.reload();
@@ -110,10 +126,12 @@ function Profile(props) {
     return (
         <section className='profile'>
             <div className='bg'>
-                <img src={`${process.env.PUBLIC_URL}/images/samples/profile_bg.png`} alt="bg" />
+                {background && (
+                    <video src={background.video} alt={`배경 ${backgroundImages.id}`} autoPlay loop muted/>
+                )}
             </div>
             <article className='showcase'>
-                <Info nickname={props.nickname} email={props.email} userImg={props.userImg} userId={props.userId} setUserImg={props.setUserImg} />
+                <Info nickname={props.nickname} email={props.email} userImg={props.userImg} userId={props.userId} setUserImg={props.setUserImg} introduce={props.introduce} />
                 <div className='works'>
                     <ul className='inner_showcase'>
                         {tabs.map((tab) => (

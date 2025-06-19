@@ -147,7 +147,6 @@ return (
                   <li>
                   {data.length > 0 ? (
                     <>
-                    {console.log(data)}
                       {props.userId===data[0].author_id?(<Link to="/profile"><img src={`${API_BASE}/uploads/${data[0].img}`} alt="프로필사진" /></Link>):(<Link to={`/UserInfo/${data[0].author_id}`}><img src={`${API_BASE}/uploads/${data[0].img}`} alt="프로필사진" /></Link>)}
                       <p className='detail_nav_txtclr'><Link to="/profile">프로필</Link></p>
                     </>

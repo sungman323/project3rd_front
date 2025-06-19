@@ -5,7 +5,7 @@
 
 .login {width: 1100px; margin: 0 auto;}
 .login > p {width: 600px; margin: 0 auto; text-align: center; margin-bottom: 30px;}
-.email > label, .password > label, .name > label, .nickname > label {display: inline-block; width: 70px; text-align: right; margin-right: 15px;}
+.email > label, .password > label, .name > label, .nickname > label, .user_intro > label {display: inline-block; width: 70px; text-align: right; margin-right: 15px;}
 .email > input, .password > input, .name > input, .nickname > input, .title > input, .category > select {height: 45px; width: 65%; text-indent: 10px; border-radius: 5px; border: 1px solid #8b8b8b; box-sizing: border-box;}
 button[type=submit] {background-color: var(--m_color); color: var(--s_color_w); width: 80%; border: none; border-radius: 5px; line-height: 50px; font-size: 24px; margin-left: 10px; font-family: var(--font_family);}
 
@@ -14,7 +14,7 @@ button[type=submit] {background-color: var(--m_color); color: var(--s_color_w); 
 .simple_login > ul {width: 390px; display: flex; justify-content: space-around; margin: 0 auto; margin-top: 40px;}
 .simple_login > ul > li > img {width: 70%;}
 
-.signin {width: 450px; margin: 0 auto;}
+.signin, .upload, .user_update {width: 450px; margin: 0 auto;}
 .signin > p, .name_box {margin-bottom:30px;}
 .signin p > label {width: 100%; text-align: left; margin-bottom: 20px;}
 .signin p > input {width: 100%;}
@@ -26,7 +26,17 @@ button[type=submit] {background-color: var(--m_color); color: var(--s_color_w); 
 #agree {width: 10%;}
 .signin button {width: 100%;}
 
-.upload {width: 450px; margin: 0 auto;}
+.user_update > .name_box {display: block;}
+.user_update > .name_box > .name, .user_update > .name_box > .nickname {width: 100%;}
+.user_update > .name_box > .name {margin-bottom: 30px;}
+.user_update label {width: 43px;}
+.user_update input {width: 86%;}
+.user_intro > label {width: 80px; font-size: 16px; font-weight: normal; text-align: left; margin-bottom: 20px;}
+.user_intro {margin: 30px 0;}
+.user_intro > textarea {width: 100%; resize: none; font-family: var(--font_family); border-radius: 5px; padding: 10px; box-sizing: border-box;}
+.user_update > p > button {width: 100%; margin: 0 auto;}
+
+.upload button {width: 100%; margin-left: 0px;}
 .upload p{margin-bottom: 20px;}
 .upload p > label {width: 100%; text-align: left; margin-bottom: 20px;}
 .upload p > input {width: 100%;}
