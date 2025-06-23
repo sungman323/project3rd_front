@@ -1,35 +1,41 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import '../css/form.css';
+import { useAuth } from '../contexts/AuthContext';
 
 const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
-function Login(props) {
+function Login() {
+  const navigate = useNavigate();
+  const { login } = useAuth();
   const [formData, setFormData] = useState({email:'', password:''});
 
   const handleChange = (e) => {
     setFormData({...formData, [e.target.name]:e.target.value});
   }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
       const res = await axios.post(`${API_BASE}/login`, formData);
-      localStorage.setItem('token', res.data.token);
-
       const decoded = jwtDecode(res.data.token);
-      if (props.setNickname) props.setNickname(decoded.nickname);
-      if (props.setEmail) props.setEmail(decoded.email);
-      if (props.setUserId) props.setUserId(decoded.id);
-      if (props.setUserImg) props.setUserImg(decoded.img);
 
-      window.location.href = '/';
+      if (decoded.id && decoded.introduce !== undefined) {
+        login(res.data.token, decoded.id, decoded.nickname, decoded.email, decoded.img, decoded.introduce);
+      } else {
+        console.error("JWT 토큰에 사용자 ID 또는 자기소개 정보가 포함되어 있지 않습니다.");
+        alert("로그인 정보가 완전하지 않습니다. 관리자에게 문의하세요.");
+        return;
+      }
+
+      navigate('/');
     } catch(err) {
-      alert('로그인 정보를 확인해주세요.')
+      console.error("로그인 에러:", err.response ? err.response.data : err.message);
+      alert('로그인 정보를 확인해주세요.');
       return;
     }
-
   }
 
   return (

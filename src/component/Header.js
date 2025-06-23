@@ -1,13 +1,13 @@
 import React, {useEffect, useState, useRef} from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
-function Header(props) {
-  const { setSelectedCategory, nickname, userImg, search, setSearch } = props;
+function Header({ setSelectedCategory, search, setSearch }) {
   const [menu, setMenu] = useState(false);
   const [profile, setProfile] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -16,8 +16,9 @@ function Header(props) {
   const profileRef = useRef(null);
   const m_profileRef = useRef(null);
 
-  /* 스크롤 시 헤더 그림자 */
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
+  const { isLoggedIn, userNickname, userProfileImg, logout } = useAuth();
 
   const categories = ['All', 'Photo', 'Portfolio', 'Graphic', 'Illust', 'Typography'];
 
@@ -31,7 +32,6 @@ function Header(props) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  /* 스크롤 이벤트 */
   useEffect(()=>{
     const handleScroll = () =>{
       if(window.scrollY > 0) {
@@ -42,7 +42,7 @@ function Header(props) {
     };
     window.addEventListener('scroll', handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('removeEventListener', handleScroll);
     };
   }, []);
 
@@ -52,8 +52,8 @@ function Header(props) {
   }
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    window.location.href = '/';
+    logout();
+    navigate('/');
   };
 
   const handleProfile = () => {
@@ -91,21 +91,21 @@ function Header(props) {
           <input type="text" name='search' id='search' placeholder='검색을 통해 디공에서 아이디어를 나눠요!' style={{fontWeight:'lighter'}} value={search} onChange={(e) => setSearch(e.target.value)} />
           <button><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
         </div>
-        {!nickname ? (
+        {!isLoggedIn ? (
           <ul className='main_header'>
             <li><Link to='/login'>로그인</Link></li>
             <li><Link to='/signin'>회원가입</Link></li>
           </ul>
         ) : (
           <ul className='main_header'>
-            <li onClick={handleProfile} ref={profileRef}><img src={`${API_BASE}/uploads/${userImg}`} alt="Profile" />{nickname}
+            <li onClick={handleProfile} ref={profileRef}><img src={`${API_BASE}/uploads/${userProfileImg}`} alt="Profile" />{userNickname}
             {profile && (<div className="h_profile">
-                <ul>
-                  <li><Link to='profile'>내 프로필</Link></li>
-                  <li><Link to='upload'>작품등록</Link></li>
-                  <li onClick={handleLogout}>로그아웃</li>
-                </ul>
-              </div>)}
+                  <ul>
+                    <li><Link to='profile'>내 프로필</Link></li>
+                    <li><Link to='upload'>작품등록</Link></li>
+                    <li onClick={handleLogout}>로그아웃</li>
+                  </ul>
+                </div>)}
             </li>
           </ul>
         )}
@@ -118,17 +118,17 @@ function Header(props) {
               <FontAwesomeIcon icon={faMagnifyingGlass}  className='s_icon' onClick={() => setShowMobileSearch(!showMobileSearch)}/>
             </div>
           </li>
-          {!nickname ? (
+          {!isLoggedIn ? (
           <li><Link to='/login'><FontAwesomeIcon icon={faUser} /></Link></li>
           ) : (
-          <li onClick={handleProfile} ref={m_profileRef}><img src={`${API_BASE}/uploads/${userImg}`} alt="User Profile" />
+          <li onClick={handleProfile} ref={m_profileRef}><img src={`${API_BASE}/uploads/${userProfileImg}`} alt="User Profile" />
             {profile && (<div className="h_profile">
-                <ul>
-                  <li><Link to='profile'>내 프로필</Link></li>
-                  <li><Link to='upload'>작품등록</Link></li>
-                  <li onClick={handleLogout}>로그아웃</li>
-                </ul>
-              </div>)}
+                  <ul>
+                    <li><Link to='profile'>내 프로필</Link></li>
+                    <li><Link to='upload'>작품등록</Link></li>
+                    <li onClick={handleLogout}>로그아웃</li>
+                  </ul>
+                </div>)}
             </li>
           )}
         </ul>

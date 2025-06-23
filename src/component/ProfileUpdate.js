@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
@@ -8,8 +8,6 @@ function ProfileUpdate() {
     const { id } = useParams();
     console.log("Profile페이지에서 받은 id:", id);
     const navigate = useNavigate();
-    const location = useLocation();
-    const { nickname, email, introduce } = location.state || {};;
 
     const [users, setUsers] = useState({
         email: '',

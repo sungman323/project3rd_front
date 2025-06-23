@@ -1,6 +1,5 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
-import Info from './Info';
 import axios from 'axios';
 import '../css/profile.css';
 
@@ -26,10 +25,7 @@ function UserInfo(props) {
         const randomIndex = Math.floor(Math.random() * backgroundImages.length);
         setBackground(backgroundImages[randomIndex]);
     },[]);
-
-    /* 좋아요 */
-    const [likedPosts, setLikedPosts] = useState([]);
-
+    
     useEffect(() => {
         if (userId) {
         axios.get(`${API_BASE}/user-posts?author_id=${userId}`)
